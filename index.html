@@ -6,448 +6,483 @@
 <title>Calendário Eleitoral 2026</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--creme:#F5F0E8;--vermelho:#8B1A1A;--grafite:#1A1A1A;--branco:#FFFFFF;--cinza:#E8E2D9}
-body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:var(--grafite);min-height:100vh}
-nav{background:var(--grafite);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:8px}
-.nav-logo{color:var(--branco);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
-.nav-logo span{color:var(--vermelho)}
-.nav-tabs{display:flex;gap:3px;flex-wrap:wrap}
-.nav-tab{background:none;border:none;color:#aaa;font-size:11px;padding:5px 8px;border-radius:4px;cursor:pointer;transition:all .2s}
-.nav-tab.active,.nav-tab:hover{background:var(--vermelho);color:var(--branco)}
-.hero{background:var(--grafite);color:var(--branco);padding:32px 16px 28px;text-align:center}
-.hero-badge{display:inline-block;background:var(--vermelho);color:var(--branco);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:3px 10px;border-radius:3px;margin-bottom:12px}
-.hero h1{font-size:24px;font-weight:300;line-height:1.2;margin-bottom:4px}
-.hero h1 strong{font-weight:800;color:var(--vermelho);display:block;font-size:30px}
-.hero p{font-size:12px;color:#bbb;margin-top:8px}
-.hero-fonte{font-size:10px;color:#888;margin-top:6px}
-.hero-fonte a{color:var(--vermelho);text-decoration:none}
-.section{display:none;padding:16px 14px 70px;max-width:720px;margin:0 auto}
-.section.active{display:block}
-.section-title{font-size:14px;font-weight:700;color:var(--vermelho);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;padding-bottom:6px;border-bottom:2px solid var(--vermelho)}
-.timeline{position:relative;padding-left:26px}
-.timeline::before{content:'';position:absolute;left:9px;top:0;bottom:0;width:2px;background:var(--cinza)}
-.tl-item{position:relative;margin-bottom:18px}
-.tl-dot{position:absolute;left:-22px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--vermelho);border:2px solid var(--creme)}
-.tl-dot.past{background:#999}
-.tl-dot.now{background:var(--vermelho);box-shadow:0 0 0 3px rgba(139,26,26,0.25)}
-.tl-date{font-size:10px;font-weight:700;color:var(--vermelho);text-transform:uppercase;letter-spacing:.5px}
-.tl-title{font-size:14px;font-weight:700;color:var(--grafite);margin:2px 0}
-.tl-desc{font-size:12px;color:#555;line-height:1.5}
-.tl-tag{display:inline-block;font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;margin-top:4px;text-transform:uppercase;letter-spacing:.5px}
-.tag-enc{background:#e0e0e0;color:#555}
-.tag-ved{background:#f8d7da;color:#842029}
-.tag-imp{background:#d1e7dd;color:#0f5132}
-.tag-elc{background:var(--vermelho);color:var(--branco)}
-.tag-ia{background:#e8daef;color:#6c3483}
-.tl-item.ativo{background:rgba(139,26,26,0.04);border-radius:8px;padding:10px 10px 10px 0;margin-left:-10px;border-left:3px solid var(--vermelho)}
-.perfil-selector{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
-.perfil-btn{flex:1;min-width:100px;background:var(--branco);border:2px solid var(--cinza);color:var(--grafite);font-size:11px;font-weight:600;padding:8px 6px;border-radius:6px;cursor:pointer;transition:all .2s;text-align:center}
-.perfil-btn.active{border-color:var(--vermelho);background:var(--vermelho);color:var(--branco)}
-.perfil-content{display:none}
-.perfil-content.active{display:block}
-.vcard{background:var(--branco);border-radius:8px;padding:12px;margin-bottom:10px;border-left:4px solid var(--vermelho);box-shadow:0 1px 3px rgba(0,0,0,.05)}
-.vcard h4{font-size:12px;font-weight:700;color:var(--vermelho);margin-bottom:3px}
-.vcard p{font-size:11px;color:#444;line-height:1.5}
-.pcard{background:var(--branco);border-radius:8px;padding:12px;margin-bottom:10px;border-left:4px solid #198754;box-shadow:0 1px 3px rgba(0,0,0,.05)}
-.pcard h4{font-size:12px;font-weight:700;color:#198754;margin-bottom:3px}
-.pcard p{font-size:11px;color:#444;line-height:1.5}
-.chat-aviso{background:var(--branco);border:1px solid var(--cinza);border-radius:8px;padding:10px 12px;margin-bottom:14px;font-size:11px;color:#666;line-height:1.5}
-.chat-aviso strong{color:var(--vermelho)}
-.chat-box{background:var(--branco);border-radius:10px;border:1px solid var(--cinza);overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.05)}
-.chat-msgs{height:300px;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:8px}
-.msg{max-width:85%;padding:9px 12px;border-radius:10px;font-size:12px;line-height:1.5}
-.msg.user{align-self:flex-end;background:var(--vermelho);color:var(--branco);border-radius:10px 10px 2px 10px}
-.msg.bot{align-self:flex-start;background:var(--creme);color:var(--grafite);border-radius:10px 10px 10px 2px;border:1px solid var(--cinza)}
-.msg.loading{color:#888;font-style:italic}
-.chat-input-row{display:flex;gap:6px;padding:10px;border-top:1px solid var(--cinza);background:#faf8f4}
-.chat-input-row input{flex:1;border:1px solid var(--cinza);border-radius:6px;padding:9px 10px;font-size:12px;background:var(--branco);outline:none}
-.chat-input-row input:focus{border-color:var(--vermelho)}
-.chat-input-row button{background:var(--vermelho);color:var(--branco);border:none;border-radius:6px;padding:9px 14px;font-size:12px;font-weight:700;cursor:pointer}
-.chat-input-row button:disabled{background:#ccc;cursor:not-allowed}
-.sugestoes{display:flex;gap:5px;flex-wrap:wrap;padding:0 10px 10px;background:#faf8f4}
-.sug{background:var(--creme);border:1px solid var(--cinza);color:var(--grafite);font-size:10px;padding:4px 8px;border-radius:16px;cursor:pointer;transition:all .2s}
-.sug:hover{background:var(--vermelho);color:var(--branco);border-color:var(--vermelho)}
-.footer{text-align:center;padding:16px;font-size:10px;background:var(--grafite);color:#aaa}
-.footer strong{color:var(--vermelho)}
+:root{--cr:#F5F0E8;--vm:#8B1A1A;--gf:#1A1A1A;--br:#FFFFFF;--cz:#E8E2D9;--vd:#198754}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--cr);color:var(--gf);min-height:100vh}
+nav{background:var(--gf);padding:10px 14px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:6px}
+.nl{color:var(--br);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase}.nl span{color:var(--vm)}
+.nt{display:flex;gap:2px;flex-wrap:wrap}
+.nb{background:none;border:none;color:#aaa;font-size:10px;padding:4px 7px;border-radius:4px;cursor:pointer;transition:all .2s}
+.nb.a,.nb:hover{background:var(--vm);color:var(--br)}
+.hero{background:var(--gf);color:var(--br);padding:28px 14px 24px;text-align:center}
+.hb{display:inline-block;background:var(--vm);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:3px 10px;border-radius:3px;margin-bottom:10px;color:var(--br)}
+.hero h1{font-size:22px;font-weight:300;line-height:1.2}
+.hero h1 strong{font-weight:800;color:var(--vm);display:block;font-size:28px}
+.hero p{font-size:11px;color:#bbb;margin-top:6px}
+.hero a{color:var(--vm);text-decoration:none;font-size:10px}
+.sec{display:none;padding:14px 12px 60px;max-width:740px;margin:0 auto}.sec.a{display:block}
+.st{font-size:13px;font-weight:700;color:var(--vm);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;padding-bottom:5px;border-bottom:2px solid var(--vm)}
+.sub{display:flex;gap:4px;margin-bottom:12px;flex-wrap:wrap}
+.sb{background:var(--br);border:2px solid var(--cz);color:var(--gf);font-size:10px;font-weight:600;padding:5px 10px;border-radius:5px;cursor:pointer;transition:all .2s}
+.sb.a{border-color:var(--vm);background:var(--vm);color:var(--br)}
+.mf{display:flex;gap:3px;margin-bottom:14px;flex-wrap:wrap}
+.mb{background:var(--cz);border:none;color:var(--gf);font-size:9px;font-weight:600;padding:3px 7px;border-radius:3px;cursor:pointer;transition:all .15s}
+.mb.a{background:var(--vm);color:var(--br)}
+.tl{position:relative;padding-left:24px}
+.tl::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:var(--cz)}
+.ti{position:relative;margin-bottom:16px}
+.td{position:absolute;left:-20px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--vm);border:2px solid var(--cr)}
+.td.p{background:#999}.td.n{background:var(--vm);box-shadow:0 0 0 3px rgba(139,26,26,.2)}
+.tt{font-size:9px;font-weight:700;color:var(--vm);text-transform:uppercase;letter-spacing:.5px}
+.th{font-size:13px;font-weight:700;margin:1px 0}
+.tp{font-size:11px;color:#555;line-height:1.45}
+.tp.ref{color:#999;font-size:9px;margin-top:1px}
+.tg{display:inline-block;font-size:8px;font-weight:700;padding:2px 5px;border-radius:3px;margin-top:3px;text-transform:uppercase;letter-spacing:.5px}
+.te{background:#e0e0e0;color:#555}.tv{background:#f8d7da;color:#842029}.tm{background:#d1e7dd;color:#0f5132}.tx{background:var(--vm);color:var(--br)}
+.ti.at{background:rgba(139,26,26,.04);border-radius:6px;padding:8px 8px 8px 0;margin-left:-8px;border-left:3px solid var(--vm)}
+.ps{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px}
+.pb{flex:1;min-width:90px;background:var(--br);border:2px solid var(--cz);color:var(--gf);font-size:10px;font-weight:600;padding:7px 5px;border-radius:5px;cursor:pointer;transition:all .2s;text-align:center}
+.pb.a{border-color:var(--vm);background:var(--vm);color:var(--br)}
+.pc{display:none}.pc.a{display:block}
+.vc{background:var(--br);border-radius:7px;padding:11px;margin-bottom:9px;border-left:4px solid var(--vm);box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.vc h4{font-size:11px;font-weight:700;color:var(--vm);margin-bottom:2px}
+.vc p{font-size:10px;color:#444;line-height:1.5}
+.gc{background:var(--br);border-radius:7px;padding:11px;margin-bottom:9px;border-left:4px solid var(--vd);box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.gc h4{font-size:11px;font-weight:700;color:var(--vd);margin-bottom:2px}
+.gc p{font-size:10px;color:#444;line-height:1.5}
+.fq{background:var(--br);border-radius:7px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.04);overflow:hidden}
+.fq summary{padding:10px 12px;font-size:11px;font-weight:700;color:var(--gf);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.fq summary::after{content:'▸';color:var(--vm);font-size:14px;transition:transform .2s}
+.fq[open] summary::after{transform:rotate(90deg)}
+.fq .fa{padding:0 12px 10px;font-size:10px;color:#444;line-height:1.55}
+.fq .fa .ref{color:#999;font-size:9px;display:block;margin-top:3px}
+.it{font-size:11px;color:#555;line-height:1.55;margin-bottom:14px}
+.it strong{color:var(--vm)}
+.footer{text-align:center;padding:14px;font-size:9px;background:var(--gf);color:#aaa}
+.footer strong{color:var(--vm)}
+.hidden{display:none}
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="nav-logo">CLODOMIR <span>ARAÚJO</span> ADVOGADOS</div>
-  <div class="nav-tabs">
-    <button class="nav-tab active" onclick="showS('timeline',this)">Calendário</button>
-    <button class="nav-tab" onclick="showS('perfis',this)">Vedações</button>
-    <button class="nav-tab" onclick="showS('ia',this)">IA Eleitoral</button>
-    <button class="nav-tab" onclick="showS('chat',this)">Pergunte à IA</button>
-  </div>
+<div class="nl">CLODOMIR <span>ARAÚJO</span> ADVOGADOS</div>
+<div class="nt">
+<button class="nb a" onclick="showS('cal',this)">Calendário</button>
+<button class="nb" onclick="showS('pnp',this)">Pode e Não Pode</button>
+<button class="nb" onclick="showS('ia',this)">IA Eleitoral</button>
+<button class="nb" onclick="showS('fin',this)">Financiamento</button>
+<button class="nb" onclick="showS('faq',this)">FAQ</button>
+</div>
 </nav>
 
 <div class="hero">
-  <div class="hero-badge">Eleições Gerais 2026</div>
-  <h1>Calendário Eleitoral<strong>2026</strong></h1>
-  <p>Datas que exigem atenção jurídica durante o processo eleitoral</p>
-  <p class="hero-fonte">Fonte oficial: <a href="https://www.tse.jus.br/eleicoes/eleicoes-2026" target="_blank">Resolução TSE nº 23.760/2026</a></p>
+<div class="hb">Eleições Gerais 2026</div>
+<h1>Calendário Eleitoral<strong>2026</strong></h1>
+<p>Datas e regras que exigem atenção durante o processo eleitoral</p>
+<a href="https://www.tse.jus.br/eleicoes/eleicoes-2026" target="_blank">Fonte: Resolução TSE nº 23.760/2026</a>
 </div>
 
-<!-- ===== TIMELINE ===== -->
-<div class="section active" id="section-timeline">
-  <p class="section-title">Linha do Tempo Oficial</p>
-  <div class="timeline">
-
-    <div class="tl-item"><div class="tl-dot past"></div>
-      <div class="tl-date">1º de janeiro de 2026 · em vigor</div>
-      <div class="tl-title">Vedações desde o início do ano</div>
-      <div class="tl-desc">Proibida a distribuição gratuita de bens, valores ou benefícios pela Administração Pública (exceto programas sociais já em execução e calamidade). Também vedado empenhar publicidade acima de 6x a média mensal dos últimos 3 anos (até 30/06).</div>
-      <span class="tl-tag tag-ved">Ano todo</span>
-    </div>
-
-    <div class="tl-item"><div class="tl-dot past"></div>
-      <div class="tl-date">5 de março a 3 de abril · concluído</div>
-      <div class="tl-title">Janela Partidária</div>
-      <div class="tl-desc">Deputados federais, estaduais e distritais puderam mudar de partido sem perda de mandato (justa causa legal, art. 22-A, III, da Lei 9.096/95).</div>
-      <span class="tl-tag tag-enc">Encerrado</span>
-    </div>
-
-    <div class="tl-item"><div class="tl-dot past"></div>
-      <div class="tl-date">4 de abril · concluído</div>
-      <div class="tl-title">Prazos de filiação, domicílio e desincompatibilização</div>
-      <div class="tl-desc">Último dia para filiação partidária, domicílio eleitoral na circunscrição e renúncia de Presidente, Governadores e Prefeitos que pretendiam concorrer a outro cargo.</div>
-      <span class="tl-tag tag-enc">Encerrado</span>
-    </div>
-
-    <div class="tl-item"><div class="tl-dot past"></div>
-      <div class="tl-date">6 de maio · concluído</div>
-      <div class="tl-title">Prazo Final para Alistamento Eleitoral</div>
-      <div class="tl-desc">Último dia para cidadãos solicitarem título de eleitor, transferência ou revisão de cadastro para votar em outubro.</div>
-      <span class="tl-tag tag-enc">Encerrado</span>
-    </div>
-
-    <div class="tl-item"><div class="tl-dot past"></div>
-      <div class="tl-date">30 de junho · concluído</div>
-      <div class="tl-title">Pré-candidatos proibidos em rádio e TV</div>
-      <div class="tl-desc">A partir desta data, emissoras de rádio e TV estão proibidas de transmitir programa apresentado ou comentado por pré-candidato (art. 45, §1º, da Lei 9.504/97).</div>
-      <span class="tl-tag tag-ved">Vedação</span>
-    </div>
-
-    <div class="tl-item ativo"><div class="tl-dot now"></div>
-      <div class="tl-date">🔴 4 de julho · em vigor em breve</div>
-      <div class="tl-title">Início das Vedações para Agentes Públicos</div>
-      <div class="tl-desc">A três meses do 1º turno: vedadas nomeações eleitoreiras, inaugurações, publicidade institucional, shows artísticos com dinheiro público e presença de candidatos em inaugurações. Sites oficiais devem remover nomes, slogans e imagens de autoridades em disputa (art. 73 da Lei 9.504/97; Res. 23.735/2024).</div>
-      <span class="tl-tag tag-ved">⚠ Condutas vedadas</span>
-    </div>
-
-    <div class="tl-item"><div class="tl-dot"></div>
-      <div class="tl-date">20 de julho a 5 de agosto</div>
-      <div class="tl-title">Convenções Partidárias</div>
-      <div class="tl-desc">Partidos e federações deliberam sobre coligações e escolhem candidatos para todos os cargos em disputa.</div>
-      <span class="tl-tag tag-imp">Partidos</span>
-    </div>
-
-    <div class="tl-item"><div class="tl-dot"></div>
-      <div class="tl-date">15 de agosto · até as 19h</div>
-      <div class="tl-title">Prazo Final para Registro de Candidatura</div>
-      <div class="tl-desc">Último dia (até as 19h) para registrar candidaturas na Justiça Eleitoral. Pendências documentais, erros na declaração de bens ou falhas na documentação partidária podem bloquear a candidatura.</div>
-      <span class="tl-tag tag-imp">Registro</span>
-    </div>
-
-    <div class="tl-item"><div class="tl-dot"></div>
-      <div class="tl-date">16 de agosto</div>
-      <div class="tl-title">Início Oficial da Campanha Eleitoral</div>
-      <div class="tl-desc">Propaganda eleitoral permitida nas ruas e na internet. Conteúdos gerados por IA devem ser rotulados de forma explícita e visível (Res. 23.755/2026). Crescem demandas sobre propaganda irregular, impulsionamento e direito de resposta.</div>
-      <span class="tl-tag tag-imp">Campanha</span>
-    </div>
-
-    <div class="tl-item"><div class="tl-dot"></div>
-      <div class="tl-date">28 de agosto a 1º de outubro</div>
-      <div class="tl-title">Horário Gratuito de Propaganda (Rádio e TV) — 1º Turno</div>
-      <div class="tl-desc">Veiculação da propaganda eleitoral gratuita no rádio e na televisão para o primeiro turno (art. 47 da Lei 9.504/97).</div>
-      <span class="tl-tag tag-imp">HGPE</span>
-    </div>
-
-    <div class="tl-item"><div class="tl-dot"></div>
-      <div class="tl-date">9 a 13 de setembro</div>
-      <div class="tl-title">Prestação Parcial de Contas</div>
-      <div class="tl-desc">Candidatos e partidos devem enviar à Justiça Eleitoral a prestação parcial de contas com toda a movimentação financeira desde o início da campanha. A omissão é irregularidade grave.</div>
-      <span class="tl-tag tag-ved">Obrigatório</span>
-    </div>
-
-    <div class="tl-item"><div class="tl-dot"></div>
-      <div class="tl-date">1º de outubro</div>
-      <div class="tl-title">Reta Final: encerramento da propaganda (1º turno)</div>
-      <div class="tl-desc">Último dia para comícios, HGPE e impulsionamento pago na internet. Debates no rádio/TV podem se estender até 7h de 2/10. Propaganda paga na imprensa escrita: até 2/10. Caminhadas, carreatas e carros de som: até 22h de 3/10. Vedada publicação de conteúdos sintéticos de IA com imagem/voz de candidato até 24h após o pleito.</div>
-      <span class="tl-tag tag-ved">Prazos finais</span>
-    </div>
-
-    <div class="tl-item"><div class="tl-dot"></div>
-      <div class="tl-date">4 de outubro · domingo</div>
-      <div class="tl-title">1º Turno das Eleições</div>
-      <div class="tl-desc">Votação das 8h às 17h (horário de Brasília) para Presidente, Governadores, Senadores, Deputados Federais e Estaduais. Toda propaganda eleitoral é proibida no dia da votação.</div>
-      <span class="tl-tag tag-elc">🗳 1º Turno</span>
-    </div>
-
-    <div class="tl-item"><div class="tl-dot"></div>
-      <div class="tl-date">9 a 23 de outubro</div>
-      <div class="tl-title">Horário Gratuito de Propaganda (Rádio e TV) — 2º Turno</div>
-      <div class="tl-desc">Propaganda eleitoral gratuita no rádio e TV para candidatos que disputam o segundo turno (se houver).</div>
-      <span class="tl-tag tag-imp">HGPE 2º turno</span>
-    </div>
-
-    <div class="tl-item"><div class="tl-dot"></div>
-      <div class="tl-date">25 de outubro · domingo</div>
-      <div class="tl-title">2º Turno das Eleições</div>
-      <div class="tl-desc">Votação das 8h às 17h para Presidente e Governadores que não obtiveram maioria absoluta no 1º turno.</div>
-      <span class="tl-tag tag-elc">🗳 2º Turno</span>
-    </div>
-
-    <div class="tl-item"><div class="tl-dot"></div>
-      <div class="tl-date">3 de dezembro</div>
-      <div class="tl-title">Prazo para justificar ausência no 1º turno</div>
-      <div class="tl-desc">Último dia para eleitores que não votaram no 1º turno apresentarem justificativa à Justiça Eleitoral.</div>
-      <span class="tl-tag tag-imp">Eleitor</span>
-    </div>
-
-    <div class="tl-item"><div class="tl-dot"></div>
-      <div class="tl-date">18 de dezembro</div>
-      <div class="tl-title">Diplomação dos Eleitos</div>
-      <div class="tl-desc">Eleitas e eleitos são diplomados pela Justiça Eleitoral.</div>
-      <span class="tl-tag tag-imp">Diplomação</span>
-    </div>
-
-    <div class="tl-item"><div class="tl-dot"></div>
-      <div class="tl-date">8 de janeiro de 2027</div>
-      <div class="tl-title">Prazo para justificar ausência no 2º turno</div>
-      <div class="tl-desc">Último dia para eleitores que não votaram no 2º turno apresentarem justificativa.</div>
-      <span class="tl-tag tag-imp">Eleitor</span>
-    </div>
-
-  </div>
+<!-- ========== CALENDÁRIO ========== -->
+<div class="sec a" id="sec-cal">
+<p class="st">Calendário Eleitoral</p>
+<div class="sub">
+<button class="sb a" onclick="showY('y26',this)">2026</button>
+<button class="sb" onclick="showY('y27',this)">2027</button>
+<button class="sb" onclick="showY('y28',this)">2028</button>
 </div>
 
-<!-- ===== VEDAÇÕES POR PERFIL ===== -->
-<div class="section" id="section-perfis">
-  <p class="section-title">Vedações por Perfil</p>
-  <div class="perfil-selector">
-    <button class="perfil-btn active" onclick="showP('gestor',this)">👔 Gestor</button>
-    <button class="perfil-btn" onclick="showP('servidor',this)">🏛 Servidor</button>
-    <button class="perfil-btn" onclick="showP('candidato',this)">📋 Candidato</button>
-    <button class="perfil-btn" onclick="showP('cidadao',this)">👤 Cidadão</button>
-  </div>
+<div id="y26">
+<div class="mf" id="mf26">
+<button class="mb a" onclick="filtM('all',this)">Todos</button>
+<button class="mb" onclick="filtM('jan',this)">Jan</button>
+<button class="mb" onclick="filtM('mar',this)">Mar-Abr</button>
+<button class="mb" onclick="filtM('mai',this)">Mai</button>
+<button class="mb" onclick="filtM('jun',this)">Jun</button>
+<button class="mb" onclick="filtM('jul',this)">Jul</button>
+<button class="mb" onclick="filtM('ago',this)">Ago</button>
+<button class="mb" onclick="filtM('set',this)">Set</button>
+<button class="mb" onclick="filtM('out',this)">Out</button>
+<button class="mb" onclick="filtM('nov',this)">Nov-Dez</button>
+</div>
+<div class="tl">
 
-  <div class="perfil-content active" id="perfil-gestor">
-    <div class="vcard"><h4>🚫 Distribuição gratuita de bens (desde 1º/01)</h4><p>Proibida distribuição gratuita de bens, valores ou benefícios pela Administração Pública durante todo o ano de 2026, salvo calamidade pública ou programas sociais já autorizados em lei e em execução no exercício anterior (art. 73, §10, Lei 9.504/97).</p></div>
-    <div class="vcard"><h4>🚫 Publicidade acima do limite (1º/01 a 30/06)</h4><p>Vedado empenhar despesas com publicidade que ultrapassem 6 vezes a média mensal dos valores empenhados nos últimos 3 anos (art. 73, VII, Lei 9.504/97).</p></div>
-    <div class="vcard"><h4>🚫 Revisão salarial desproporcional (desde 7/04)</h4><p>Vedada revisão geral de remuneração de servidores que ultrapasse a recomposição inflacionária do ano da eleição. Vale até a posse dos eleitos (art. 73, VIII, Lei 9.504/97).</p></div>
-    <div class="vcard"><h4>🚫 Nomeações e exonerações (a partir de 4/07)</h4><p>Vedado nomear, contratar, demitir ou exonerar com fins eleitorais. Exceções: cargos em comissão, concursos já homologados e necessidade inadiável de serviços essenciais (art. 73, V, Lei 9.504/97).</p></div>
-    <div class="vcard"><h4>🚫 Inaugurações de obras (a partir de 4/07)</h4><p>Vedada participação em inaugurações com caráter eleitoral. Candidatos ficam proibidos de comparecer a inaugurações de obras públicas. Descumprimento: cassação do registro ou diploma (arts. 75 e 77, Lei 9.504/97).</p></div>
-    <div class="vcard"><h4>🚫 Shows com dinheiro público (a partir de 4/07)</h4><p>Vedada a contratação de shows artísticos pagos com recursos públicos em inaugurações ou divulgação de serviços (art. 75, Lei 9.504/97).</p></div>
-    <div class="vcard"><h4>🚫 Publicidade institucional (a partir de 4/07)</h4><p>Proibida publicidade de atos, programas, obras e serviços do governo, salvo grave e urgente necessidade pública reconhecida pela Justiça Eleitoral (art. 73, VI, b, Lei 9.504/97).</p></div>
-    <div class="vcard"><h4>🚫 Sites e redes oficiais (a partir de 4/07)</h4><p>Agentes públicos devem remover de sites, canais e redes sociais oficiais nomes, slogans, símbolos, expressões e imagens que identifiquem autoridades cujos cargos estejam em disputa (Res. 23.735/2024, art. 15, §3º, com redação da Res. 23.757/2026).</p></div>
-    <div class="pcard"><h4>✅ O que pode</h4><p>Pagamento de salários, serviços públicos essenciais, licitações em andamento, atos de gestão ordinária, obras emergenciais justificadas e publicidade de utilidade pública (saúde, segurança, emergências).</p></div>
-  </div>
+<div class="ti" data-m="jan"><div class="td p"></div>
+<div class="tt">1º de janeiro · em vigor</div>
+<div class="th">Vedações desde o início do ano</div>
+<div class="tp">🚫 Proibida distribuição gratuita de bens pela Administração Pública (exceto programas sociais já em execução e calamidade). Vedado empenhar publicidade acima de 6x a média mensal dos últimos 3 anos (até 30/06). Obrigatório registrar pesquisas eleitorais no PesqEle.</div>
+<div class="tp ref">(art. 73, §10 e VII, Lei 9.504/97; Res. 23.747/2026)</div>
+<span class="tg tv">Ano todo</span></div>
 
-  <div class="perfil-content" id="perfil-servidor">
-    <div class="vcard"><h4>🚫 Uso de bens e recursos públicos</h4><p>Proibido usar veículos, equipamentos, instalações ou pessoal da administração pública em atividades de campanha, mesmo fora do expediente (art. 73, I, Lei 9.504/97).</p></div>
-    <div class="vcard"><h4>🚫 Campanha durante o expediente</h4><p>Servidor não pode fazer campanha no horário de trabalho ou dentro de repartições públicas, sob pena de responsabilidade administrativa e eleitoral.</p></div>
-    <div class="vcard"><h4>🚫 Pressão sobre subordinados</h4><p>Vedado a chefias pressionar ou constranger subordinados para que votem em determinado candidato ou partido.</p></div>
-    <div class="pcard"><h4>✅ O que pode</h4><p>Candidatar-se (mediante afastamento legal), participar de comícios como cidadão fora do expediente, apoiar candidatos com recursos próprios e exercer livremente o direito de voto.</p></div>
-  </div>
+<div class="ti" data-m="mar"><div class="td p"></div>
+<div class="tt">5 de março a 3 de abril · concluído</div>
+<div class="th">Janela Partidária</div>
+<div class="tp">Deputados federais, estaduais e distritais puderam mudar de partido sem perda de mandato.</div>
+<div class="tp ref">(art. 22-A, III, Lei 9.096/95)</div>
+<span class="tg te">Encerrado</span></div>
 
-  <div class="perfil-content" id="perfil-candidato">
-    <div class="vcard"><h4>🚫 Propaganda antes de 16/08</h4><p>Pedir voto antes do início oficial da campanha (16 de agosto) configura campanha antecipada, com multa de R$ 5.000 a R$ 25.000 (art. 36, Lei 9.504/97). Antes disso, é possível falar sobre ideias e projetos sem pedir voto.</p></div>
-    <div class="vcard"><h4>🚫 Comparecer a inaugurações (a partir de 4/07)</h4><p>Candidato não pode comparecer a inaugurações de obras públicas nos 3 meses antes da eleição, sob pena de cassação do registro ou diploma (art. 77, Lei 9.504/97).</p></div>
-    <div class="vcard"><h4>🚫 Compra de votos</h4><p>Oferecer, prometer ou entregar vantagem para obter o voto é crime eleitoral com pena de até 4 anos de reclusão, além de cassação (art. 299, Código Eleitoral).</p></div>
-    <div class="vcard"><h4>🚫 Propaganda irregular na internet</h4><p>Impulsionamento sem autorização e perfis falsos são vedados. Propaganda em bens públicos (muros, postes, viadutos) é sempre proibida.</p></div>
-    <div class="pcard"><h4>✅ O que pode (após 16/08)</h4><p>Material gráfico, comícios, carreatas, propaganda nas redes com identificação, impulsionamento pago declarado nas contas e financiamento coletivo (disponível desde 15/05 sem pedir voto).</p></div>
-  </div>
+<div class="ti" data-m="mar"><div class="td p"></div>
+<div class="tt">4 de abril · concluído</div>
+<div class="th">Filiação, domicílio e desincompatibilização</div>
+<div class="tp">Prazo final para filiação partidária, domicílio eleitoral na circunscrição e renúncia de Presidente, Governadores e Prefeitos que pretendiam concorrer a outro cargo.</div>
+<div class="tp ref">(art. 9º, Lei 9.504/97; art. 14, §6º, CF)</div>
+<span class="tg te">Encerrado</span></div>
 
-  <div class="perfil-content" id="perfil-cidadao">
-    <div class="vcard"><h4>🚫 Propaganda no dia da eleição</h4><p>No dia da votação: proibido fazer campanha, distribuir material, usar bandeiras ou adesivos padronizados, inclusive nas proximidades das seções (raio de 100m). Permitida apenas manifestação individual e silenciosa.</p></div>
-    <div class="vcard"><h4>🚫 Boca de urna</h4><p>Abordar eleitores para influenciar o voto próximo à seção é crime eleitoral (art. 39-A, Lei 9.504/97), independente de quem pratique.</p></div>
-    <div class="pcard"><h4>✅ O que pode</h4><p>Votar livremente, expressar opinião nas redes sociais sem impulsionamento pago, participar de comícios, fazer doações dentro dos limites legais e denunciar irregularidades ao TRE. Prazo para justificar ausência: 1º turno até 3/12/2026; 2º turno até 8/01/2027.</p></div>
-  </div>
+<div class="ti" data-m="mar"><div class="td p"></div>
+<div class="tt">7 de abril · concluído</div>
+<div class="th">Vedação de revisão salarial desproporcional</div>
+<div class="tp">A partir de 180 dias antes do 1º turno, vedada revisão geral de remuneração de servidores que exceda a recomposição inflacionária. Vale até a posse dos eleitos.</div>
+<div class="tp ref">(art. 73, VIII, Lei 9.504/97)</div>
+<span class="tg tv">Em vigor</span></div>
+
+<div class="ti" data-m="mai"><div class="td p"></div>
+<div class="tt">6 de maio · concluído</div>
+<div class="th">Prazo final para alistamento eleitoral</div>
+<div class="tp">Último dia para solicitar título de eleitor, transferência ou revisão de cadastro.</div>
+<div class="tp ref">(art. 91, Lei 9.504/97; Res. 23.750/2026)</div>
+<span class="tg te">Encerrado</span></div>
+
+<div class="ti" data-m="mai"><div class="td p"></div>
+<div class="tt">15 de maio · concluído</div>
+<div class="th">Financiamento coletivo liberado</div>
+<div class="tp">Pré-candidatos podem iniciar arrecadação por vaquinha online, sem pedir voto. A liberação dos recursos depende do registro da candidatura, CNPJ e conta bancária.</div>
+<div class="tp ref">(art. 22-A, §3º, Lei 9.504/97; Res. 23.752/2026)</div>
+<span class="tg tm">Permitido</span></div>
+
+<div class="ti" data-m="jun"><div class="td p"></div>
+<div class="tt">1º de junho · concluído</div>
+<div class="th">Fundo Eleitoral (FEFC) disponibilizado ao TSE</div>
+<div class="tp">Prazo final para a União repassar os recursos do FEFC ao TSE para distribuição aos partidos.</div>
+<div class="tp ref">(art. 16-C, §2º, Lei 9.504/97; Res. 23.749/2026)</div>
+<span class="tg tm">Financiamento</span></div>
+
+<div class="ti" data-m="jun"><div class="td p"></div>
+<div class="tt">30 de junho · concluído</div>
+<div class="th">Pré-candidatos proibidos em rádio e TV</div>
+<div class="tp">Emissoras proibidas de transmitir programa apresentado ou comentado por pré-candidato.</div>
+<div class="tp ref">(art. 45, §1º, Lei 9.504/97)</div>
+<span class="tg tv">Vedação</span></div>
+
+<div class="ti at" data-m="jul"><div class="td n"></div>
+<div class="tt">🔴 4 de julho · em vigor em breve</div>
+<div class="th">Início das vedações para agentes públicos</div>
+<div class="tp">A 3 meses do 1º turno: vedadas nomeações eleitoreiras, inaugurações, publicidade institucional, shows com dinheiro público. Candidatos proibidos de comparecer a inaugurações (pena: cassação). Sites oficiais devem remover nomes e imagens de autoridades em disputa.</div>
+<div class="tp ref">(art. 73, V e VI, arts. 75 e 77, Lei 9.504/97; Res. 23.735/2024, art. 15, §3º)</div>
+<span class="tg tv">⚠ Condutas vedadas</span></div>
+
+<div class="ti" data-m="jul"><div class="td"></div>
+<div class="tt">20 de julho a 5 de agosto</div>
+<div class="th">Convenções partidárias</div>
+<div class="tp">Partidos e federações deliberam sobre coligações e escolhem candidatos. Após a convenção, podem formalizar contratos de campanha.</div>
+<div class="tp ref">(art. 8º, Lei 9.504/97; Res. 23.754/2026)</div>
+<span class="tg tm">Partidos</span></div>
+
+<div class="ti" data-m="ago"><div class="td"></div>
+<div class="tt">15 de agosto · até as 19h</div>
+<div class="th">Prazo final para registro de candidatura</div>
+<div class="tp">Último dia (até 19h) para registrar candidaturas. Pendências documentais, erros na declaração de bens ou falhas partidárias podem bloquear a candidatura.</div>
+<div class="tp ref">(art. 11, Lei 9.504/97; Res. 23.754/2026)</div>
+<span class="tg tm">Registro</span></div>
+
+<div class="ti" data-m="ago"><div class="td"></div>
+<div class="tt">16 de agosto</div>
+<div class="th">Início oficial da campanha eleitoral</div>
+<div class="tp">Propaganda eleitoral permitida nas ruas e na internet. Conteúdos gerados por IA devem ser rotulados. Impulsionamento pago permitido (deve constar na prestação de contas).</div>
+<div class="tp ref">(arts. 36 e 57-A, Lei 9.504/97; Res. 23.755/2026)</div>
+<span class="tg tm">Campanha</span></div>
+
+<div class="ti" data-m="ago"><div class="td"></div>
+<div class="tt">28 de agosto a 1º de outubro</div>
+<div class="th">HGPE — Rádio e TV (1º turno)</div>
+<div class="tp">Horário gratuito de propaganda eleitoral no rádio e na televisão.</div>
+<div class="tp ref">(art. 47, Lei 9.504/97)</div>
+<span class="tg tm">HGPE</span></div>
+
+<div class="ti" data-m="set"><div class="td"></div>
+<div class="tt">9 a 13 de setembro</div>
+<div class="th">Prestação parcial de contas</div>
+<div class="tp">Candidatos e partidos devem enviar à Justiça Eleitoral a movimentação financeira desde o início da campanha. A omissão é irregularidade grave que pode levar à reprovação das contas.</div>
+<div class="tp ref">(art. 28, §4º, II, Lei 9.504/97; Res. 23.752/2026)</div>
+<span class="tg tv">Obrigatório</span></div>
+
+<div class="ti" data-m="out"><div class="td"></div>
+<div class="tt">1º de outubro</div>
+<div class="th">Reta final: encerramento da propaganda (1º turno)</div>
+<div class="tp">Último dia para comícios, HGPE e impulsionamento pago na internet. Debates podem se estender até 7h de 2/10. Propaganda paga na imprensa: até 2/10. Caminhadas e carros de som: até 22h de 3/10. Vedada publicação de conteúdos sintéticos de IA até 24h após o pleito.</div>
+<div class="tp ref">(arts. 39, 43 e 47, Lei 9.504/97; Res. 23.755/2026)</div>
+<span class="tg tv">Prazos finais</span></div>
+
+<div class="ti" data-m="out"><div class="td"></div>
+<div class="tt">4 de outubro · domingo</div>
+<div class="th">1º Turno das Eleições</div>
+<div class="tp">Votação das 8h às 17h (Brasília). Presidente, Governadores, Senadores, Deputados Federais e Estaduais. Toda propaganda é proibida no dia.</div>
+<span class="tg tx">🗳 1º Turno</span></div>
+
+<div class="ti" data-m="out"><div class="td"></div>
+<div class="tt">9 a 23 de outubro</div>
+<div class="th">HGPE — Rádio e TV (2º turno)</div>
+<div class="tp">Propaganda gratuita para candidatos que disputam o 2º turno.</div>
+<div class="tp ref">(art. 49, Lei 9.504/97)</div>
+<span class="tg tm">HGPE 2º turno</span></div>
+
+<div class="ti" data-m="out"><div class="td"></div>
+<div class="tt">25 de outubro · domingo</div>
+<div class="th">2º Turno das Eleições</div>
+<div class="tp">Votação das 8h às 17h para Presidente e Governadores que não obtiveram maioria absoluta.</div>
+<span class="tg tx">🗳 2º Turno</span></div>
+
+<div class="ti" data-m="nov"><div class="td"></div>
+<div class="tt">3 de novembro</div>
+<div class="th">Prestação de contas final (1º turno)</div>
+<div class="tp">Último dia para candidatos e partidos enviarem as contas do 1º turno. Sobras devem ser transferidas ao partido; recursos do FEFC não utilizados, ao Tesouro Nacional.</div>
+<div class="tp ref">(art. 29, III, Lei 9.504/97; Res. 23.752/2026)</div>
+<span class="tg tv">Obrigatório</span></div>
+
+<div class="ti" data-m="nov"><div class="td"></div>
+<div class="tt">14 de novembro</div>
+<div class="th">Prestação de contas final (2º turno)</div>
+<div class="tp">Último dia para candidatos que disputaram o 2º turno enviarem prestação de contas dos dois turnos.</div>
+<div class="tp ref">(art. 29, IV, Lei 9.504/97)</div>
+<span class="tg tv">Obrigatório</span></div>
+
+<div class="ti" data-m="nov"><div class="td"></div>
+<div class="tt">3 de dezembro</div>
+<div class="th">Justificativa de ausência — 1º turno</div>
+<div class="tp">Último dia para quem não votou no 1º turno justificar a ausência pelo e-Título, site do TSE ou cartório eleitoral.</div>
+<div class="tp ref">(art. 16, Lei 6.091/74; Res. 23.659/2021)</div>
+<span class="tg tm">Eleitor</span></div>
+
+<div class="ti" data-m="nov"><div class="td"></div>
+<div class="tt">18 de dezembro</div>
+<div class="th">Diplomação dos eleitos</div>
+<div class="tp">Eleitas e eleitos são diplomados pela Justiça Eleitoral. A partir da diplomação, corre prazo de 3 dias para RCED e 15 dias para AIME.</div>
+<div class="tp ref">(Res. 23.748/2026)</div>
+<span class="tg tm">Diplomação</span></div>
+
+</div></div>
+
+<!-- 2027 -->
+<div id="y27" class="hidden">
+<div class="tl">
+<div class="ti"><div class="td"></div>
+<div class="tt">5 de janeiro</div>
+<div class="th">Posse do Presidente da República</div>
+<div class="tp">Presidente e Vice-Presidente eleitos tomam posse.</div>
+<div class="tp ref">(art. 82, CF)</div>
+<span class="tg tm">Posse</span></div>
+
+<div class="ti"><div class="td"></div>
+<div class="tt">6 de janeiro</div>
+<div class="th">Posse dos Governadores</div>
+<div class="tp">Governadores e Vice-Governadores eleitos tomam posse nos estados e no DF.</div>
+<span class="tg tm">Posse</span></div>
+
+<div class="ti"><div class="td"></div>
+<div class="tt">8 de janeiro</div>
+<div class="th">Justificativa de ausência — 2º turno</div>
+<div class="tp">Último dia para quem não votou no 2º turno justificar a ausência.</div>
+<div class="tp ref">(Res. 23.659/2021)</div>
+<span class="tg tm">Eleitor</span></div>
+
+<div class="ti"><div class="td"></div>
+<div class="tt">12 de janeiro</div>
+<div class="th">Prazo para auditoria das urnas</div>
+<div class="tp">Último dia para entidades fiscalizadoras solicitarem verificação dos sistemas eleitorais pós-pleito e cópias de arquivos de auditoria.</div>
+<div class="tp ref">(Res. 23.673/2021, arts. 48 e 51)</div>
+<span class="tg te">Fiscalização</span></div>
+
+<div class="ti"><div class="td"></div>
+<div class="tt">25 de janeiro</div>
+<div class="th">Fim da cessão de servidores à JE (2º turno)</div>
+<div class="tp">Último dia para cessão de funcionários à Justiça Eleitoral nas UFs que realizaram 2º turno.</div>
+<div class="tp ref">(art. 94-A, II, Lei 9.504/97)</div>
+<span class="tg te">Administrativo</span></div>
+
+<div class="ti"><div class="td"></div>
+<div class="tt">16 de junho</div>
+<div class="th">Conservação da documentação de contas</div>
+<div class="tp">Último dia para candidatos e partidos conservarem a documentação de suas contas de campanha, salvo se pendentes de julgamento.</div>
+<div class="tp ref">(art. 32, Lei 9.504/97)</div>
+<span class="tg te">Contas</span></div>
+
+<div class="ti"><div class="td"></div>
+<div class="tt">30 de julho</div>
+<div class="th">Consolidação de doações pela Receita Federal</div>
+<div class="tp">Último dia para o TSE enviar à Receita Federal as informações sobre valores doados. A Receita comunica ao MP indícios de doações acima dos limites legais.</div>
+<div class="tp ref">(art. 24-C, §§1º a 3º, Lei 9.504/97)</div>
+<span class="tg te">Fiscalização</span></div>
+
+<div class="ti"><div class="td"></div>
+<div class="tt">31 de dezembro</div>
+<div class="th">Prazo para o MP ajuizar representação por doação irregular</div>
+<div class="tp">Último dia para o Ministério Público Eleitoral ajuizar representação contra doações acima do limite legal referentes ao exercício de 2025.</div>
+<div class="tp ref">(art. 24-C, §3º, Lei 9.504/97)</div>
+<span class="tg tv">MP Eleitoral</span></div>
+</div></div>
+
+<!-- 2028 -->
+<div id="y28" class="hidden">
+<div class="tl">
+<div class="ti"><div class="td"></div>
+<div class="tt">4 de abril de 2028</div>
+<div class="th">Resultados disponíveis no centro de dados do TSE</div>
+<div class="tp">Data até a qual os dados dos resultados das Eleições 2026 estarão disponíveis em centro de dados provido pelo TSE.</div>
+<div class="tp ref">(Res. 23.760/2026)</div>
+<span class="tg te">Dados</span></div>
+</div></div>
 </div>
 
-<!-- ===== IA ELEITORAL ===== -->
-<div class="section" id="section-ia">
-  <p class="section-title">Inteligência Artificial nas Eleições 2026</p>
-  <p style="font-size:12px;color:#555;line-height:1.6;margin-bottom:16px">Regras da <strong>Resolução TSE nº 23.755/2026</strong>, que alterou a Res. 23.610/2019 sobre propaganda eleitoral.</p>
-
-  <div class="vcard"><h4>🚫 Deepfakes: proibição absoluta</h4><p>É vedado criar, usar ou divulgar vídeo, áudio ou imagem que reproduza falsamente a voz ou o rosto de pessoa real em contexto que não ocorreu, com objetivo eleitoral. A proibição é absoluta, sem exceção — mesmo em tom de humor ou sátira.</p></div>
-
-  <div class="vcard"><h4>🏷️ Rotulagem obrigatória (a partir de 16/08)</h4><p>Todo conteúdo de propaganda eleitoral gerado ou alterado por inteligência artificial deve ser identificado de forma explícita, destacada e acessível, informando que foi fabricado ou manipulado e qual tecnologia foi utilizada (art. 9º-B, Res. 23.610/2019).</p></div>
-
-  <div class="vcard"><h4>🚫 Blackout de IA (a partir de 1º/10)</h4><p>A partir de 1º de outubro, até 24 horas após o término do pleito, ficam vedadas a publicação, republicação e impulsionamento de novos conteúdos sintéticos com imagem, voz ou manifestação de candidato ou pessoa pública — mesmo que rotulados.</p></div>
-
-  <div class="vcard"><h4>🚫 IA proibida de recomendar candidatos</h4><p>Provedores de aplicação que ofereçam sistemas de IA estão proibidos de ranquear, recomendar, sugerir ou priorizar candidatos, partidos ou coligações, ainda que o próprio usuário solicite (art. 28, §1º-C, Res. 23.610/2019).</p></div>
-
-  <div class="vcard"><h4>⚠️ Multas e penalidades</h4><p>Descumprimento: remoção imediata do conteúdo + multa de R$ 5.000 a R$ 30.000 (art. 57-D, Lei 9.504/97). Casos graves podem configurar abuso de poder político e uso indevido dos meios de comunicação, com cassação do registro ou mandato.</p></div>
-
-  <div class="pcard"><h4>✅ Usos legítimos de IA</h4><p>IA pode ser usada para produção de conteúdo (textos, artes, vinhetas), análise de dados, segmentação de público e atendimento automatizado — desde que a rotulagem seja cumprida e não haja manipulação enganosa.</p></div>
+<!-- ========== PODE E NÃO PODE ========== -->
+<div class="sec" id="sec-pnp">
+<p class="st">Pode e Não Pode</p>
+<div class="ps">
+<button class="pb a" onclick="showP('ges',this)">👔 Gestor</button>
+<button class="pb" onclick="showP('ser',this)">🏛 Servidor</button>
+<button class="pb" onclick="showP('can',this)">📋 Candidato</button>
+<button class="pb" onclick="showP('cid',this)">👤 Cidadão</button>
 </div>
 
-<!-- ===== CHAT ===== -->
-<div class="section" id="section-chat">
-  <p class="section-title">Pergunte à IA Eleitoral</p>
-  <div class="chat-aviso">⚖️ <strong>Aviso legal:</strong> Este assistente tem fins estritamente educativos, com base na Lei 9.504/97, Código Eleitoral e Resoluções do TSE. <strong>Não substitui assessoria jurídica.</strong></div>
-  <div class="chat-box">
-    <div class="chat-msgs" id="chatMsgs">
-      <div class="msg bot">Olá! Sou o assistente de direito eleitoral da <strong>Clodomir Araújo Advogados</strong>. Posso esclarecer dúvidas sobre o calendário 2026, condutas vedadas, regras de campanha e uso de IA nas eleições. Como posso ajudar?</div>
-    </div>
-    <div class="sugestoes">
-      <button class="sug" onclick="sendS('Prefeito pode inaugurar obra em agosto de 2026?')">Inauguração em agosto?</button>
-      <button class="sug" onclick="sendS('Quando começa a campanha eleitoral em 2026?')">Início da campanha?</button>
-      <button class="sug" onclick="sendS('Posso usar IA para fazer material de campanha?')">IA na campanha?</button>
-      <button class="sug" onclick="sendS('Qual é a data do primeiro turno das eleições 2026?')">Data do 1º turno?</button>
-      <button class="sug" onclick="sendS('Servidor pode fazer campanha para candidato?')">Servidor e campanha?</button>
-    </div>
-    <div class="chat-input-row">
-      <input type="text" id="chatInput" placeholder="Digite sua dúvida eleitoral..." onkeydown="if(event.key==='Enter')sendMsg()">
-      <button id="sendBtn" onclick="sendMsg()">Enviar</button>
-    </div>
-  </div>
+<div class="pc a" id="pc-ges">
+<div class="vc"><h4>🚫 Distribuição gratuita de bens (desde 1º/01)</h4><p>Proibida distribuição de bens, valores ou benefícios pela Administração Pública durante todo 2026. Exceções: programas sociais já autorizados em lei e em execução no exercício anterior, e calamidade pública. Sanção: nulidade do ato + multa. <br><em>(art. 73, §10, Lei 9.504/97)</em></p></div>
+<div class="vc"><h4>🚫 Publicidade acima do limite (1º/01 a 30/06)</h4><p>Vedado empenhar com publicidade acima de 6x a média mensal dos últimos 3 anos. <br><em>(art. 73, VII, Lei 9.504/97)</em></p></div>
+<div class="vc"><h4>🚫 Revisão salarial desproporcional (desde 7/04)</h4><p>Vedada revisão geral de remuneração de servidores que exceda a recomposição inflacionária, até a posse dos eleitos. <br><em>(art. 73, VIII, Lei 9.504/97)</em></p></div>
+<div class="vc"><h4>🚫 Nomeações e exonerações (desde 4/07)</h4><p>Vedado nomear, contratar, demitir ou exonerar com fins eleitorais. Exceções: cargos em comissão; Judiciário/MP/Tribunais de Contas; concursos já homologados; necessidade inadiável de serviços essenciais (com autorização do Chefe do Executivo); transferência de militares e policiais. Sanção: nulidade de pleno direito. <br><em>(art. 73, V, Lei 9.504/97)</em></p></div>
+<div class="vc"><h4>🚫 Inaugurações e shows (desde 4/07)</h4><p>Vedadas inaugurações com caráter eleitoral e contratação de shows artísticos pagos com recursos públicos. Candidatos proibidos de comparecer a inaugurações de obras. Sanção: cassação do registro ou diploma. <br><em>(arts. 73, VI, 75 e 77, Lei 9.504/97; Res. 23.735/2024)</em></p></div>
+<div class="vc"><h4>🚫 Publicidade institucional (desde 4/07)</h4><p>Proibida publicidade de atos, programas, obras e serviços do governo. Exceção: grave e urgente necessidade pública reconhecida pela Justiça Eleitoral. <br><em>(art. 73, VI, b, Lei 9.504/97)</em></p></div>
+<div class="vc"><h4>🚫 Sites e redes oficiais (desde 4/07)</h4><p>Agentes públicos devem remover de sites, canais e redes sociais oficiais nomes, slogans, símbolos e imagens que identifiquem autoridades em disputa. Mantêm-se apenas informações de transparência obrigatórias por lei. <br><em>(Res. 23.735/2024, art. 15, §3º; Res. 23.757/2026)</em></p></div>
+<div class="vc"><h4>🚫 Transferências voluntárias (desde 4/07)</h4><p>Vedadas transferências voluntárias de recursos da União aos Estados/Municípios e dos Estados aos Municípios. Exceção: obrigações formais preexistentes, obras com cronograma prefixado e calamidade. Sanção: nulidade absoluta. <br><em>(art. 73, VI, a, Lei 9.504/97)</em></p></div>
+<div class="gc"><h4>✅ O que pode</h4><p>Pagamento de salários, serviços essenciais, licitações em andamento, gestão ordinária, obras emergenciais justificadas, publicidade de utilidade pública (saúde, segurança, emergências) e programas sociais já em execução.</p></div>
+</div>
+
+<div class="pc" id="pc-ser">
+<div class="vc"><h4>🚫 Uso de bens e recursos públicos</h4><p>Proibido usar veículos, equipamentos, instalações ou pessoal da administração em atividades de campanha, mesmo fora do expediente. <br><em>(art. 73, I, Lei 9.504/97)</em></p></div>
+<div class="vc"><h4>🚫 Campanha no trabalho</h4><p>Servidor não pode fazer campanha no horário de trabalho, dentro de repartições ou usando e-mail institucional. <br><em>(art. 73, I e III, Lei 9.504/97)</em></p></div>
+<div class="vc"><h4>🚫 Assédio eleitoral</h4><p>Vedado a chefias pressionar, constranger ou ameaçar subordinados para que votem em determinado candidato — tanto no serviço público quanto no privado. Configura abuso de poder e pode gerar cassação. <br><em>(Res. 23.757/2026; art. 73, Lei 9.504/97)</em></p></div>
+<div class="vc"><h4>🚫 Participação com identificação funcional</h4><p>Servidor não deve comparecer a eventos de campanha usando crachá, uniforme ou qualquer identificação do órgão público. <br><em>(art. 73, I, Lei 9.504/97)</em></p></div>
+<div class="gc"><h4>✅ O que pode</h4><p>Candidatar-se (mediante afastamento legal), participar de comícios como cidadão fora do expediente, apoiar candidatos com recursos próprios e exercer livremente o direito de voto.</p></div>
+</div>
+
+<div class="pc" id="pc-can">
+<div class="vc"><h4>🚫 Propaganda antes de 16/08</h4><p>Pedir voto antes do início da campanha configura campanha antecipada. Multa: R$ 5.000 a R$ 25.000. Antes disso, é possível falar sobre ideias sem pedir voto e iniciar financiamento coletivo (desde 15/05). <br><em>(art. 36, Lei 9.504/97)</em></p></div>
+<div class="vc"><h4>🚫 Comparecer a inaugurações (desde 4/07)</h4><p>Candidato proibido de comparecer a inaugurações de obras públicas. Sanção: cassação do registro ou diploma. <br><em>(art. 77, Lei 9.504/97)</em></p></div>
+<div class="vc"><h4>🚫 Compra de votos</h4><p>Oferecer, prometer ou entregar vantagem para obter voto é crime eleitoral. Pena: até 4 anos de reclusão + cassação. <br><em>(art. 299, Código Eleitoral)</em></p></div>
+<div class="vc"><h4>🚫 Propaganda em bens públicos</h4><p>Propaganda em muros, postes, viadutos e outros bens públicos é sempre proibida. <br><em>(art. 37, Lei 9.504/97)</em></p></div>
+<div class="vc"><h4>🚫 Fontes de financiamento vedadas</h4><p>Proibido receber recursos de: governos e órgãos públicos, entidades estrangeiras, concessionárias de serviço público, entidades sindicais e de classe, e pessoas jurídicas em geral (desde 2015). <br><em>(art. 24, Lei 9.504/97; Res. 23.752/2026)</em></p></div>
+<div class="vc"><h4>⚠️ Prestação de contas obrigatória</h4><p>Parcial: 9 a 13/09. Final: 30 dias após a eleição. Doações devem ser informadas em 72h. Descumprimento: desaprovação das contas e possível cassação se comprovado abuso do poder econômico. <br><em>(arts. 28-30, Lei 9.504/97; Res. 23.752/2026)</em></p></div>
+<div class="gc"><h4>✅ O que pode (após 16/08)</h4><p>Material gráfico, comícios, carreatas, propaganda nas redes com identificação, impulsionamento pago declarado, propaganda paga na imprensa escrita (até 10 anúncios por veículo), e financiamento coletivo via entidades habilitadas pelo TSE.</p></div>
+</div>
+
+<div class="pc" id="pc-cid">
+<div class="vc"><h4>🚫 Propaganda no dia da eleição</h4><p>Proibido fazer campanha, distribuir material, usar bandeiras ou adesivos padronizados, inclusive nas proximidades das seções (100m). Permitida apenas manifestação individual e silenciosa. <br><em>(art. 39, §5º, Lei 9.504/97)</em></p></div>
+<div class="vc"><h4>🚫 Boca de urna</h4><p>Abordar eleitores para influenciar o voto próximo à seção é crime eleitoral, independente de quem pratique. <br><em>(art. 39-A, Lei 9.504/97)</em></p></div>
+<div class="vc"><h4>🚫 Impulsionamento pago pelo eleitor</h4><p>Apenas candidatos, partidos e coligações podem contratar impulsionamento. Eleitor que pagar para impulsionar conteúdo eleitoral comete irregularidade. <br><em>(art. 57-B, Lei 9.504/97; Res. 23.759/2026)</em></p></div>
+<div class="gc"><h4>✅ Expressar opinião</h4><p>O cidadão pode publicar opiniões nas redes sociais, defender candidaturas e criticar adversários — desde que sem impulsionamento pago e sem uso enganoso de IA. <br><em>(Res. 23.759/2026)</em></p></div>
+<div class="gc"><h4>✅ Denunciar irregularidades</h4><p>Qualquer cidadão pode denunciar compra de votos, propaganda irregular, uso indevido da máquina pública e crimes eleitorais pelo aplicativo <strong>Pardal</strong> (disponível na Google Play e Apple Store). Os dados do denunciante são protegidos. <br><em>(Res. 23.759/2026, art. 63; Portaria TSE 745/2018)</em></p></div>
+<div class="gc"><h4>✅ Consultar contas de campanha</h4><p>Qualquer pessoa pode consultar os processos de prestação de contas dos candidatos e obter cópias, respeitados os sigilos legais. <br><em>(Res. 23.759/2026, art. 65)</em></p></div>
+<div class="gc"><h4>✅ Transporte especial (PcD)</h4><p>Eleitores com deficiência ou mobilidade reduzida que não tenham meio próprio de ir à seção podem solicitar transporte individual gratuito pelo <strong>Programa Seu Voto Importa</strong>. Prazo: até 14/09 (1º turno) e 5/10 (2º turno). <br><em>(Res. 23.753/2026)</em></p></div>
+<div class="gc"><h4>⚠️ Justificativa eleitoral</h4><p>Quem não votou tem 60 dias após cada turno para justificar: 1º turno até 3/12/2026; 2º turno até 8/01/2027. Pode ser feito pelo e-Título, site do TSE ou cartório. Quem não justifica nem paga multa fica com pendências no título. <br><em>(art. 7º, CE; Res. 23.659/2021)</em></p></div>
+</div>
+</div>
+
+<!-- ========== IA ELEITORAL ========== -->
+<div class="sec" id="sec-ia">
+<p class="st">Inteligência Artificial nas Eleições 2026</p>
+<p class="it">Regras da <strong>Resolução TSE nº 23.755/2026</strong>, que alterou a Res. 23.610/2019 sobre propaganda eleitoral.</p>
+
+<div class="vc"><h4>🚫 Deepfakes: proibição absoluta</h4><p>Vedado criar, usar ou divulgar conteúdo que reproduza falsamente voz ou rosto de pessoa real em contexto que não ocorreu. Proibição absoluta, sem exceção — mesmo em tom de humor, sátira ou paródia. Inclui nudez, sexo e violência política contra a mulher. <br><em>(art. 9º-C, Res. 23.610/2019; Res. 23.755/2026)</em></p></div>
+
+<div class="vc"><h4>🏷️ Rotulagem obrigatória (desde 16/08)</h4><p>Todo conteúdo de propaganda eleitoral gerado ou alterado por IA deve conter informação <strong>explícita, destacada e acessível</strong> indicando: (1) que o conteúdo foi fabricado ou manipulado; (2) qual tecnologia foi utilizada. O rótulo deve ser perceptível mesmo em compartilhamentos e deve acompanhar o conteúdo em qualquer plataforma. <br><em>(art. 9º-B, Res. 23.610/2019)</em></p></div>
+
+<div class="vc"><h4>🚫 Blackout de IA (a partir de 1º/10)</h4><p>De 1º de outubro até 24 horas após o pleito: vedada publicação, republicação e impulsionamento de novos conteúdos sintéticos com imagem, voz ou manifestação de candidato ou pessoa pública — mesmo que rotulados. No 2º turno, o blackout começa em 22/10. <br><em>(Res. 23.760/2026; Res. 23.755/2026)</em></p></div>
+
+<div class="vc"><h4>🚫 IA proibida de recomendar candidatos</h4><p>Provedores de aplicação com sistemas de IA não podem ranquear, recomendar, sugerir ou priorizar candidatos, partidos ou coligações, ainda que o próprio usuário solicite. <br><em>(art. 28, §1º-C, Res. 23.610/2019)</em></p></div>
+
+<div class="vc"><h4>⚠️ Inversão do ônus da prova</h4><p>Em processos judiciais sobre uso de IA, cabe a quem postou o conteúdo provar que as informações são reais e demonstrar como a tecnologia foi utilizada. <br><em>(Res. 23.757/2026)</em></p></div>
+
+<div class="vc"><h4>⚠️ Multas e penalidades</h4><p>Descumprimento: remoção imediata + multa de R$ 5.000 a R$ 30.000. Casos graves configuram abuso de poder político e uso indevido dos meios de comunicação → cassação do registro ou mandato. <br><em>(art. 57-D, Lei 9.504/97; Res. 23.757/2026)</em></p></div>
+
+<div class="gc"><h4>✅ Usos legítimos</h4><p>IA pode ser usada para: produção de textos e artes, análise de dados, segmentação de público, atendimento automatizado, edição de vídeo e áudio — desde que a rotulagem seja cumprida e não haja manipulação enganosa.</p></div>
+
+<div class="gc"><h4>✅ Como denunciar conteúdo irregular</h4><p>Use o aplicativo <strong>Pardal</strong> do TSE para denunciar deepfakes, conteúdos de IA sem rotulagem e propaganda irregular. As plataformas também devem oferecer mecanismo de denúncia próprio para candidatos e partidos. <br><em>(Res. 23.759/2026, art. 63; Res. 23.755/2026)</em></p></div>
+
+<p class="it" style="margin-top:14px"><strong>Exemplos práticos:</strong></p>
+<div class="gc"><h4>✅ Permitido</h4><p>Usar IA para gerar texto de um programa de governo, criar arte para post no Instagram ou editar vídeo de comício — desde que rotulado como conteúdo gerado por IA.</p></div>
+<div class="vc"><h4>🚫 Proibido</h4><p>Criar vídeo com a voz ou o rosto de um candidato dizendo algo que ele nunca disse. Usar IA para gerar foto falsa de adversário em situação comprometedora. Publicar conteúdo de IA sem rótulo.</p></div>
+</div>
+
+<!-- ========== FINANCIAMENTO ========== -->
+<div class="sec" id="sec-fin">
+<p class="st">Financiamento de Campanha</p>
+<p class="it">Regras da <strong>Res. 23.752/2026</strong> (arrecadação e gastos) e <strong>Res. 23.749/2026</strong> (FEFC).</p>
+
+<div class="gc"><h4>✅ Fontes permitidas de financiamento</h4><p>Recursos próprios do candidato (autofinanciamento, com limite de 10% dos rendimentos brutos do ano anterior) · Doações de pessoas físicas (limite de 10% dos rendimentos brutos do ano anterior) · Fundo Partidário · Fundo Especial de Financiamento de Campanha (FEFC) · Financiamento coletivo (vaquinha online) via entidades habilitadas pelo TSE · Comercialização de bens e serviços ou realização de eventos. <br><em>(arts. 23 e 23-A, Lei 9.504/97)</em></p></div>
+
+<div class="vc"><h4>🚫 Fontes proibidas</h4><p>Governos e órgãos públicos · Entidades ou governos estrangeiros · Pessoas jurídicas (desde 2015) · Concessionárias de serviço público · Entidades de classe e sindicais · Entidades de utilidade pública · Cartórios de registro civil · Entidades esportivas · Organizações não governamentais que recebam recursos públicos · Organizações da sociedade civil (OSCIP) · Recursos de origem não identificada. <br><em>(art. 24, Lei 9.504/97; Res. 23.752/2026)</em></p></div>
+
+<div class="vc"><h4>⚠️ Fundo Eleitoral (FEFC)</h4><p>Recursos públicos distribuídos aos partidos para financiar campanhas. A União deveria repassar ao TSE até 1º de junho. Partidos devem destinar percentuais mínimos a candidaturas femininas (30%), de pessoas negras e indígenas. Valores não utilizados devem ser devolvidos ao Tesouro Nacional após a eleição. <br><em>(art. 16-C, Lei 9.504/97; Res. 23.749/2026)</em></p></div>
+
+<div class="gc"><h4>✅ Financiamento coletivo (vaquinha)</h4><p>Permitido desde 15/05/2026, antes mesmo do registro. As entidades arrecadadoras devem ser habilitadas pelo TSE. Doações são lançadas individualmente na prestação de contas. Taxas cobradas pelas plataformas são despesa de campanha. Vedado pedir voto antes de 16/08. <br><em>(art. 22-A, §3º, Lei 9.504/97; Res. 23.752/2026)</em></p></div>
+
+<div class="vc"><h4>⚠️ Prazos de prestação de contas</h4><p><strong>Parcial:</strong> 9 a 13 de setembro — toda movimentação desde o início da campanha. <strong>Final (1º turno):</strong> até 3 de novembro. <strong>Final (2º turno):</strong> até 14 de novembro. Doações devem ser informadas ao TSE em até 72 horas do recebimento. Omissão é irregularidade grave → desaprovação das contas. <br><em>(art. 28, §4º, Lei 9.504/97; Res. 23.752/2026)</em></p></div>
+
+<div class="vc"><h4>⚠️ Consequências por irregularidade</h4><p>Uso de recursos de fonte vedada ou não identificada → devolução ao poder público + desaprovação das contas. Excesso de gastos → multa de 100% do valor excedido. Comprovado abuso do poder econômico → cassação do registro ou diploma. <br><em>(arts. 25 e 30-A, Lei 9.504/97)</em></p></div>
+</div>
+
+<!-- ========== FAQ ========== -->
+<div class="sec" id="sec-faq">
+<p class="st">Perguntas Frequentes</p>
+<div class="sub">
+<button class="sb a" onclick="showFaq('fq-cid',this)">👤 Cidadão</button>
+<button class="sb" onclick="showFaq('fq-can',this)">📋 Candidato</button>
+<button class="sb" onclick="showFaq('fq-ges',this)">👔 Gestor</button>
+<button class="sb" onclick="showFaq('fq-ser',this)">🏛 Servidor</button>
+</div>
+
+<div id="fq-cid">
+<details class="fq"><summary>Quando é o dia da eleição em 2026?</summary><div class="fa">1º turno: 4 de outubro. 2º turno (se houver): 25 de outubro. Votação das 8h às 17h, horário de Brasília. <span class="ref">(Res. 23.760/2026)</span></div></details>
+<details class="fq"><summary>Não votei. O que acontece e como justificar?</summary><div class="fa">Você tem 60 dias após cada turno para justificar (1º turno: até 3/12; 2º turno: até 8/01/2027). Use o e-Título, o site do TSE ou vá a um cartório eleitoral. Sem justificativa e sem pagar multa, seu título fica irregular — o que impede tirar passaporte, tomar posse em cargo público e fazer matrícula em universidade pública. <span class="ref">(art. 7º, CE; Res. 23.659/2021)</span></div></details>
+<details class="fq"><summary>Posso expressar minha opinião política nas redes sociais?</summary><div class="fa">Sim, livremente. O que não pode: pagar para impulsionar conteúdo eleitoral (isso é exclusivo de candidatos/partidos) e usar IA de forma enganosa. <span class="ref">(Res. 23.759/2026)</span></div></details>
+<details class="fq"><summary>Como denuncio uma irregularidade eleitoral?</summary><div class="fa">Baixe o aplicativo <strong>Pardal</strong> do TSE (Google Play ou Apple Store). Você pode denunciar compra de votos, propaganda irregular, uso indevido da máquina pública e crimes eleitorais. Seus dados são protegidos. <span class="ref">(Res. 23.759/2026, art. 63)</span></div></details>
+<details class="fq"><summary>Tenho deficiência. Como peço transporte para votar?</summary><div class="fa">O Programa "Seu Voto Importa" oferece transporte individual gratuito. Solicite até 14/09 (1º turno) ou 5/10 (2º turno) junto à Justiça Eleitoral. <span class="ref">(Res. 23.753/2026)</span></div></details>
+<details class="fq"><summary>Posso acompanhar as contas dos candidatos?</summary><div class="fa">Sim. Qualquer pessoa pode consultar as prestações de contas no site do TSE e obter cópias dos documentos. <span class="ref">(Res. 23.759/2026, art. 65)</span></div></details>
+<details class="fq"><summary>O que é deepfake e por que é proibido?</summary><div class="fa">Deepfake é conteúdo fabricado por IA que reproduz falsamente a voz ou o rosto de alguém. Nas eleições, é proibido sem exceção — mesmo em tom de humor. Multa de R$ 5.000 a R$ 30.000 + remoção imediata. <span class="ref">(Res. 23.755/2026)</span></div></details>
+</div>
+
+<div id="fq-can" class="hidden">
+<details class="fq"><summary>Posso pedir voto antes de 16 de agosto?</summary><div class="fa">Não. Pedir voto antes do início da campanha configura campanha antecipada, com multa de R$ 5.000 a R$ 25.000. Você pode falar de ideias e projetos, dar entrevistas e iniciar financiamento coletivo (desde 15/05) — sem pedir voto. <span class="ref">(art. 36, Lei 9.504/97)</span></div></details>
+<details class="fq"><summary>Até quando posso registrar minha candidatura?</summary><div class="fa">Até as 19h do dia 15 de agosto de 2026. Após esse horário, não há como registrar. <span class="ref">(art. 11, Lei 9.504/97)</span></div></details>
+<details class="fq"><summary>Posso usar IA para criar material de campanha?</summary><div class="fa">Sim, desde que rotule o conteúdo de forma explícita e visível como gerado por IA. Deepfakes são proibidos sempre. A partir de 1º/10, vedada publicação de conteúdos sintéticos com imagem/voz de candidato. <span class="ref">(Res. 23.755/2026)</span></div></details>
+<details class="fq"><summary>Quem pode doar para minha campanha?</summary><div class="fa">Apenas pessoas físicas (limite de 10% dos rendimentos brutos do ano anterior). Recursos próprios também têm limite de 10%. Doações de empresas são proibidas desde 2015. Também são permitidos recursos do Fundo Partidário e do FEFC. <span class="ref">(arts. 23 e 24, Lei 9.504/97)</span></div></details>
+<details class="fq"><summary>Quais são os prazos de prestação de contas?</summary><div class="fa">Parcial: 9 a 13/09. Final 1º turno: até 3/11. Final 2º turno: até 14/11. Cada doação deve ser informada ao TSE em até 72h. <span class="ref">(art. 28, Lei 9.504/97; Res. 23.752/2026)</span></div></details>
+<details class="fq"><summary>Posso comparecer a inaugurações de obras?</summary><div class="fa">Não. A partir de 4 de julho, candidatos são proibidos de comparecer a inaugurações de obras públicas. Sanção: cassação do registro ou diploma. <span class="ref">(art. 77, Lei 9.504/97)</span></div></details>
+</div>
+
+<div id="fq-ges" class="hidden">
+<details class="fq"><summary>Posso inaugurar uma obra depois de 4 de julho?</summary><div class="fa">Depende. A inauguração em si não é absolutamente proibida, mas é vedada quando tiver caráter eleitoral ou quando houver contratação de shows artísticos com dinheiro público. Candidatos não podem comparecer. Sanção: cassação. O risco jurídico é altíssimo nesse período. <span class="ref">(arts. 73, VI, 75 e 77, Lei 9.504/97)</span></div></details>
+<details class="fq"><summary>Posso fazer publicidade institucional?</summary><div class="fa">Não, a partir de 4 de julho. Exceção: grave e urgente necessidade pública reconhecida pela Justiça Eleitoral. Publicidade de utilidade pública (saúde, segurança, emergências) é permitida. <span class="ref">(art. 73, VI, b, Lei 9.504/97)</span></div></details>
+<details class="fq"><summary>O que preciso mudar no site oficial da prefeitura/governo?</summary><div class="fa">A partir de 4 de julho: remover de sites, canais e redes sociais oficiais nomes, slogans, símbolos e imagens que identifiquem autoridades em disputa. Manter apenas informações obrigatórias de transparência. <span class="ref">(Res. 23.735/2024, art. 15, §3º)</span></div></details>
+<details class="fq"><summary>Posso nomear alguém para cargo em comissão?</summary><div class="fa">Sim. Nomeação e exoneração de cargos em comissão e funções de confiança estão entre as exceções expressas da lei. Mas atenção: se a nomeação configurar favorecimento eleitoral, pode ser questionada. <span class="ref">(art. 73, V, I, Lei 9.504/97)</span></div></details>
+<details class="fq"><summary>Posso dar aumento aos servidores?</summary><div class="fa">Somente recomposição inflacionária do ano da eleição. Revisão que exceda esse limite é vedada desde 7 de abril, até a posse dos eleitos. <span class="ref">(art. 73, VIII, Lei 9.504/97)</span></div></details>
+</div>
+
+<div id="fq-ser" class="hidden">
+<details class="fq"><summary>Posso apoiar um candidato fora do trabalho?</summary><div class="fa">Sim. Fora do expediente e sem usar bens, recursos ou identificação funcional do órgão, você pode apoiar candidatos livremente com recursos próprios. <span class="ref">(Res. 23.759/2026)</span></div></details>
+<details class="fq"><summary>Meu chefe pode me pressionar a votar em alguém?</summary><div class="fa">Não. Isso é assédio eleitoral, vedado tanto no serviço público quanto no privado. Configura abuso de poder e pode gerar cassação da candidatura beneficiada. Denuncie pelo Pardal ou ao Ministério Público. <span class="ref">(Res. 23.757/2026)</span></div></details>
+<details class="fq"><summary>Posso usar o e-mail do trabalho para campanha?</summary><div class="fa">Não. É vedado usar qualquer recurso do órgão público — incluindo e-mail institucional, telefone e equipamentos — para fins de campanha. <span class="ref">(art. 73, I, Lei 9.504/97)</span></div></details>
+<details class="fq"><summary>Posso me candidatar sendo servidor?</summary><div class="fa">Sim, mediante afastamento nos termos da legislação aplicável ao seu cargo (desincompatibilização). Consulte um advogado eleitoral para verificar o prazo específico. <span class="ref">(LC 64/90)</span></div></details>
+</div>
 </div>
 
 <div class="footer">
-  <strong>Clodomir Araújo Advogados Associados</strong> · Belém/PA · Direito Público & Eleitoral<br>
-  Fonte: Resolução TSE nº 23.760/2026 e resoluções complementares. Finalidade educativa — não constitui assessoria jurídica.
+<strong>Clodomir Araújo Advogados Associados</strong> · Belém/PA · Direito Público & Eleitoral<br>
+Fonte: Resolução TSE nº 23.760/2026 e resoluções complementares. Finalidade educativa — não constitui assessoria jurídica.
 </div>
 
 <script>
-function showS(id,btn){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));document.getElementById('section-'+id).classList.add('active');btn.classList.add('active')}
-function showP(id,btn){document.querySelectorAll('.perfil-content').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.perfil-btn').forEach(b=>b.classList.remove('active'));document.getElementById('perfil-'+id).classList.add('active');btn.classList.add('active')}
-
-const SYS=`Você é um assistente especializado no calendário eleitoral e nas regras das Eleições de 2026 no Brasil, disponibilizado pela Clodomir Araújo Advogados Associados (escritório de direito público e eleitoral em Belém/PA).
-
-MISSÃO: Orientar qualquer pessoa — eleitor, servidor, candidato ou gestor — de forma clara, simples e acessível sobre o calendário e as regras eleitorais de 2026.
-
-SUA PERSONALIDADE:
-- Fale como uma pessoa atenciosa, não como um robô ou manual jurídico
-- Use linguagem simples, direta, sem jargão técnico desnecessário
-- Quando mencionar uma lei, explique o que ela significa na prática
-- Seja objetivo: responda o que a pessoa perguntou, sem rodeios
-- Se não souber algo com certeza, diga claramente e oriente a consultar tse.jus.br
-
-O QUE VOCÊ FAZ:
-- Informa datas e prazos do calendário eleitoral 2026 (Resolução TSE nº 23.760/2026)
-- Explica o que agentes públicos, candidatos, servidores e eleitores podem e não podem fazer
-- Responde perguntas no estilo "posso fazer isso?" ou "até quando tenho para..."
-- Explica as regras de propaganda eleitoral, uso de IA e condutas vedadas de forma simples
-
-O QUE VOCÊ NÃO FAZ:
-- Não dá opinião política nem indica partidos ou candidatos
-- Não discute escândalos ou polêmica sobre candidatos específicos
-- Não faz previsões sobre resultados eleitorais
-- Não responde perguntas fora do tema eleitoral de 2026
-Se a pergunta for fora do seu escopo, diga com gentileza que você é especializado em calendário e regras eleitorais de 2026.
-
-COMO RESPONDER "POSSO OU NÃO POSSO":
-1. Comece com resposta direta: "Pode", "Não pode" ou "Depende"
-2. Explique o motivo em 2 ou 3 frases simples
-3. Mencione exceções ou condições, se houver
-4. Finalize indicando onde buscar mais informações se necessário
-
-CALENDÁRIO ELEITORAL 2026 — RESOLUÇÃO TSE Nº 23.760/2026:
-
-CARGOS EM DISPUTA: Presidente da República, Governadores, Senadores, Deputados Federais, Estaduais e Distritais.
-
-DATAS PRINCIPAIS:
-- 1º turno: 4 de outubro de 2026 (votação das 8h às 17h, horário de Brasília)
-- 2º turno: 25 de outubro de 2026 (se houver)
-
-JANEIRO 2026 (desde 1º/01):
-- Obrigatório registrar pesquisas eleitorais na Justiça Eleitoral
-- Proibida distribuição gratuita de bens ou benefícios pelo Poder Público (exceto programas sociais em andamento e calamidade)
-- Vedado empenhar com publicidade acima de 6x a média mensal dos últimos 3 anos (até 30/06)
-
-MARÇO-ABRIL:
-- 5/03 a 3/04: Janela partidária (encerrada)
-- 4/04: Prazo final para domicílio eleitoral, filiação partidária e desincompatibilização (encerrado)
-
-MAIO:
-- 6/05: Último dia para solicitar título de eleitor (encerrado)
-- 15/05: Pré-candidatos podem iniciar arrecadação por financiamento coletivo (sem pedir voto)
-
-JUNHO:
-- 30/06: Proibido emissoras de rádio e TV exibirem programa apresentado por pré-candidato
-
-JULHO (a partir de 4/07):
-INÍCIO DAS CONDUTAS VEDADAS A AGENTES PÚBLICOS:
-- Proibido nomeações, exonerações e contratações com fins eleitorais (exceções: cargos em comissão, concursos homologados, serviços essenciais inadiáveis)
-- Proibido inaugurações com caráter eleitoral e shows artísticos pagos com dinheiro público
-- Candidatos proibidos de comparecer a inaugurações (pena: cassação)
-- Proibida publicidade institucional (salvo urgência reconhecida pela Justiça Eleitoral)
-- Agentes públicos devem remover de sites oficiais nomes, slogans, imagens de autoridades em disputa
-- Proibido usar servidores em atividades de campanha
-
-A partir de 7/04 (180 dias antes): vedada revisão salarial de servidores acima da recomposição inflacionária
-
-AGOSTO:
-- 20/07 a 5/08: Convenções partidárias
-- 15/08 (até 19h): Prazo final para registro de candidaturas
-- 16/08: INÍCIO DA PROPAGANDA ELEITORAL (ruas e internet)
-- 16/08: Conteúdo gerado por IA deve ser rotulado de forma explícita e visível
-- 28/08 a 1/10: Horário gratuito de propaganda no rádio e TV (1º turno)
-
-SETEMBRO:
-- 9 a 13/09: Prestação parcial de contas obrigatória
-- 19/09: Candidatos não podem ser presos (salvo flagrante) — 15 dias antes do 1º turno
-
-OUTUBRO — PRAZOS FINAIS DE PROPAGANDA (1º turno):
-- 1º/10: Último dia para comícios, HGPE, impulsionamento pago na internet
-- 1º/10: Último dia para debates (podem se estender até 7h de 2/10)
-- 1º/10: Início do blackout de IA — vedada publicação de conteúdos sintéticos com imagem/voz de candidato até 24h após o pleito
-- 2/10: Último dia para propaganda paga na imprensa escrita
-- 3/10 até 22h: Último dia para caminhadas, carreatas, carro de som, material gráfico
-- 4/10: 1º TURNO (8h às 17h)
-- 9 a 23/10: HGPE do 2º turno
-- 25/10: 2º TURNO (se houver)
-
-NOVEMBRO-DEZEMBRO:
-- 3/12: Prazo para justificar ausência no 1º turno
-- 18/12: Diplomação dos eleitos
-
-JANEIRO 2027:
-- 5/01: Posse do Presidente da República
-- 6/01: Posse dos Governadores
-- 8/01: Prazo para justificar ausência no 2º turno
-
-IA NA PROPAGANDA ELEITORAL (Res. 23.755/2026):
-- Deepfakes proibidos SEMPRE (vedação absoluta, sem exceção)
-- A partir de 16/08: rotulagem obrigatória de conteúdo gerado por IA
-- A partir de 1º/10: blackout de IA — vedada publicação/impulsionamento de conteúdos sintéticos com imagem/voz de candidato até 24h após o pleito
-- Provedores de IA proibidos de ranquear ou recomendar candidatos
-- Multa por descumprimento: R$ 5.000 a R$ 30.000 + remoção imediata
-- Casos graves: cassação do registro ou mandato por abuso de poder
-
-CONDUTAS VEDADAS — POR PERFIL:
-
-AGENTES PÚBLICOS:
-Desde 1º/01: proibida distribuição gratuita de bens; limite de publicidade
-Desde 7/04: vedada revisão salarial desproporcional
-Desde 4/07: nomeações, inaugurações, publicidade institucional, shows com dinheiro público, adequação de sites oficiais
-PODE: serviços essenciais, licitações, gestão ordinária, publicidade de utilidade pública
-
-CANDIDATOS:
-Antes de 16/08: pode falar de ideias sem pedir voto; financiamento coletivo desde 15/05
-Desde 4/07: proibido comparecer a inaugurações
-A partir de 16/08: toda propaganda prevista em lei
-NÃO PODE: propaganda em bens públicos, compra de votos, impulsionamento sem declaração
-
-SERVIDORES:
-PODE: votar, apoiar candidatos fora do expediente com recursos próprios
-NÃO PODE: campanha no trabalho, usar estrutura do órgão, pressionar subordinados
-
-ELEITORES:
-PODE: votar, opinar nas redes (sem impulsionamento pago), participar de comícios
-NÃO PODE: boca de urna, propaganda no dia da eleição
-Justificativa: 1º turno até 3/12; 2º turno até 8/01/2027
-
-IMPORTANTE: Se não tiver certeza sobre algo, diga claramente e oriente o usuário a consultar tse.jus.br ou um advogado eleitoral. NUNCA invente datas, artigos ou jurisprudência.`;
-
-async function sendMsg(){const i=document.getElementById('chatInput');const m=i.value.trim();if(!m)return;i.value='';appendM(m,'user');const l=appendM('Consultando legislação eleitoral...','bot loading');document.getElementById('sendBtn').disabled=true;try{const r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:SYS,messages:[{role:'user',content:m}]})});const d=await r.json();const t=d.content?.map(c=>c.text||'').join('')||'Não consegui processar. Tente novamente.';l.classList.remove('loading');l.innerHTML=t.replace(/\n/g,'<br>')}catch(e){l.classList.remove('loading');l.innerHTML='Erro ao conectar. Verifique sua conexão.'}document.getElementById('sendBtn').disabled=false;document.getElementById('chatMsgs').scrollTop=99999}
-function appendM(t,c){const b=document.getElementById('chatMsgs');const e=document.createElement('div');e.className='msg '+c;e.innerHTML=t;b.appendChild(e);b.scrollTop=99999;return e}
-function sendS(t){document.getElementById('chatInput').value=t;sendMsg()}
+function showS(id,b){document.querySelectorAll('.sec').forEach(s=>s.classList.remove('a'));document.querySelectorAll('.nb').forEach(t=>t.classList.remove('a'));document.getElementById('sec-'+id).classList.add('a');b.classList.add('a')}
+function showY(id,b){['y26','y27','y28'].forEach(y=>{document.getElementById(y).classList.add('hidden')});document.getElementById(id).classList.remove('hidden');b.parentElement.querySelectorAll('.sb').forEach(s=>s.classList.remove('a'));b.classList.add('a');if(id==='y26')document.getElementById('mf26').style.display='flex';else document.getElementById('mf26').style.display='none'}
+function filtM(m,b){b.parentElement.querySelectorAll('.mb').forEach(x=>x.classList.remove('a'));b.classList.add('a');document.querySelectorAll('#y26 .ti').forEach(i=>{if(m==='all'||i.dataset.m===m)i.style.display='';else i.style.display='none'})}
+function showP(id,b){document.querySelectorAll('.pc').forEach(p=>p.classList.remove('a'));document.querySelectorAll('.pb').forEach(x=>x.classList.remove('a'));document.getElementById('pc-'+id).classList.add('a');b.classList.add('a')}
+function showFaq(id,b){['fq-cid','fq-can','fq-ges','fq-ser'].forEach(f=>{document.getElementById(f).classList.add('hidden')});document.getElementById(id).classList.remove('hidden');b.parentElement.querySelectorAll('.sb').forEach(s=>s.classList.remove('a'));b.classList.add('a')}
 </script>
 </body>
 </html>
